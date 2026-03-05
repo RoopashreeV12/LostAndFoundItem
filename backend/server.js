@@ -11,32 +11,9 @@ connectDB();
 
 const app = express();
 
-/* ---------- CORS CONFIG ---------- */
-
-const allowedOrigins = [
-  "https://lostandfounditem-2.onrender.com",
-  "http://localhost:5173"
-];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true
-  })
-);
-
-/* allow preflight requests */
-app.options("*", cors());
-
 /* ---------- MIDDLEWARE ---------- */
 
+app.use(cors()); // allow all origins
 app.use(express.json());
 
 /* serve uploaded images */
