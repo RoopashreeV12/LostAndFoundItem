@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Loginpage";
@@ -12,7 +12,7 @@ import "./App.css";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
 
         <Route path="/" element={<Home />} />
@@ -24,7 +24,7 @@ function App() {
         <Route path="/found-items" element={<FoundItems />} />
 
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
