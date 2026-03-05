@@ -16,11 +16,11 @@ const registerAdmin = async (req, res) => {
     }
 
     const existingAdmin = await Admin.findOne({ email });
+
     if (existingAdmin) {
       return res.status(400).json({ message: "Admin already exists" });
     }
 
-    /* Hash password */
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newAdmin = new Admin({
@@ -31,38 +31,56 @@ const registerAdmin = async (req, res) => {
 
     await newAdmin.save();
 
-    res.status(201).json({ message: "Admin registered successfully" });
+    res.status(201).json({
+      message: "Admin registered successfully"
+    });
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+
+    console.error("Register Error:", error);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
   }
 };
 
 
 /* ================= LOGIN ADMIN ================= */
 const loginAdmin = async (req, res) => {
+
   try {
+
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ message: "Email and password are required" });
+      return res.status(400).json({
+        message: "Email and password are required"
+      });
     }
 
     const admin = await Admin.findOne({ email });
+
     if (!admin) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(401).json({
+        message: "Invalid email or password"
+      });
     }
 
-    /* Compare password */
     const isMatch = await bcrypt.compare(password, admin.password);
+
     if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
+      return res.status(401).json({
+        message: "Invalid email or password"
+      });
     }
 
     /* Generate JWT token */
+
     const token = jwt.sign(
-      { id: admin._id, role: admin.role },
-      process.env.JWT_SECRET,
+      { id: admin._id },
+      process.env.JWT_SECRET || "secret123",
       { expiresIn: "1d" }
     );
 
@@ -77,7 +95,13 @@ const loginAdmin = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+
+    console.error("Login Error:", error);
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
   }
 };
 
