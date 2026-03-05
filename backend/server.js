@@ -13,7 +13,18 @@ const app = express();
 
 /* ---------- MIDDLEWARE ---------- */
 
-app.use(cors()); // allow all origins
+// Allow frontend domain
+app.use(
+  cors({
+    origin: [
+      "https://lostandfounditem-2.onrender.com",
+      "http://localhost:3000"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
 app.use(express.json());
 
 /* serve uploaded images */
