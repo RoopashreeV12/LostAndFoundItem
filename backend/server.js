@@ -1,4 +1,3 @@
-// 
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -14,7 +13,15 @@ const app = express();
 
 /* ---------- MIDDLEWARE ---------- */
 
-app.use(cors());
+// Allow requests from your frontend domain
+app.use(
+  cors({
+    origin: "https://lostandfounditem-2.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 
 /* serve uploaded images */
