@@ -11,16 +11,31 @@ connectDB();
 
 const app = express();
 
-/* ---------- MIDDLEWARE ---------- */
+/* ---------- CORS CONFIG ---------- */
 
-// Allow requests from your frontend domain
+const allowedOrigins = [
+  "https://lostandfounditem-2.onrender.com",
+  "http://localhost:5173"
+];
+
 app.use(
   cors({
-    origin: "https://lostandfounditem-2.onrender.com",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
   })
 );
+
+/* allow preflight requests */
+app.options("*", cors());
+
+/* ---------- MIDDLEWARE ---------- */
 
 app.use(express.json());
 
