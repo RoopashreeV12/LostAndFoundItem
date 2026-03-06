@@ -12,18 +12,18 @@ connectDB();
 const app = express();
 
 /* ---------- MIDDLEWARE ---------- */
-
+app.use(cors())
 // Allow frontend domain
-app.use(
-  cors({
-    origin: [
-      "https://lostandfounditem-2.onrender.com",
-      "http://localhost:3000"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "https://lostandfounditem-2.onrender.com",
+//       "http://localhost:3000"
+//     ],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true
+//   })
+// );
 
 app.use(express.json());
 
