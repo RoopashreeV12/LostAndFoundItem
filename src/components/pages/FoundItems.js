@@ -10,8 +10,8 @@ function FoundItems() {
 
   useEffect(() => {
     axios
-      // .get("https://lostandfounditem-1.onrender.com/api/items")
-      .get("http://localhost:5000/api/items")
+      .get("https://lostandfounditem-1.onrender.com/api/items")
+      // .get("http://localhost:5000/api/items")
       .then(res => {
         const foundItems = res.data.filter(item => item.type === "found");
         setItems(foundItems);
