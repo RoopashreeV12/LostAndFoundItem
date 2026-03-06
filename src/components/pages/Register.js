@@ -37,8 +37,8 @@ function Register() {
       setLoading(true);
 
       const res = await axios.post(
-        // "https://lostandfounditem-1.onrender.com/api/admin/register",
-        "http://localhost:5000/api/items",
+        "https://lostandfounditem-1.onrender.com/api/admin/register",
+        // "http://localhost:5000/api/items",
         form
       );
 
