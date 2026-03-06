@@ -30,8 +30,8 @@ function ReportItem() {
       formData.append("image", lost.image);
 
       await axios.post(
-         "https://lostandfounditem-1.onrender.com/api/lost",
-        // "http://localhost:5000/api/lost",
+        //  "https://lostandfounditem-1.onrender.com/api/lost",
+         "http://localhost:5000/api/lost",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
